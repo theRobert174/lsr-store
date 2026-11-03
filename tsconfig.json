@@ -3,6 +3,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "strict": true,
     "paths": {
       "@app/*": ["./src/app/*"],
       "@components/*": ["./src/app/shared/components/*"],
@@ -23,6 +24,7 @@
     "module": "preserve"
   },
   "angularCompilerOptions": {
+    "strictTemplates": true,
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true

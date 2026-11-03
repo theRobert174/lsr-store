@@ -3,7 +3,7 @@ import { Component, computed, inject, input, linkedSignal } from '@angular/core'
 import { NgpButton } from 'ng-primitives/button';
 import { NgpDialogTitle } from 'ng-primitives/dialog';
 import { DialogPanel } from '@components/molecules/Dialog/Dialog';
-import { availabilityLabels, Book } from '@app/core/services/Cart';
+import { availabilityLabels, Book } from '@core/models/Book';
 
 @Component({
   selector: 'book-info-dialog',

@@ -20,7 +20,7 @@ export default defineConfig({
     { name: 'mobile-chromium', use: { ...devices['Pixel 7'] } },
   ],
   webServer: {
-    command: 'pnpm run start --host 127.0.0.1 --port 4300',
+    command: 'node node_modules/@angular/cli/bin/ng.js serve --host 127.0.0.1 --port 4300',
     url: baseURL,
     reuseExistingServer: false,
     timeout: 120_000,

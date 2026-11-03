@@ -22,7 +22,7 @@ describe('AuthPage', () => {
     TestBed.configureTestingModule({ providers: [provideRouter(routes)] });
     const harness = await RouterTestingHarness.create('/');
     expect(harness.routeNativeElement?.querySelector('auth-layout login-form')).not.toBeNull();
-    expect(harness.routeNativeElement?.querySelector('h1')?.textContent).toContain('Bienvenido');
+    expect(harness.routeNativeElement?.querySelector('h1')?.textContent).toContain('Explora');
   });
 
   it('shows validation after submit and focuses the first invalid input', async () => {

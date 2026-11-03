@@ -52,14 +52,12 @@ a:focus-visible {
   background: #1d4ed8;
   color: #fff;
   font-size: 0.875rem;
-  letter-spacing: -0.04em;
 }
 .brand-caption {
   display: block;
   margin-top: 0.125rem;
   color: #475569;
   font-size: 0.6875rem;
-  font-weight: 400;
 }
 .back-link,
 .text-link {
@@ -90,7 +88,6 @@ h1 {
   margin: 0;
   font-size: clamp(1.75rem, 4vw, 2.25rem);
   font-weight: 700;
-  letter-spacing: -0.04em;
 }
 h1:focus {
   outline: none;
@@ -119,7 +116,6 @@ h1:focus {
   border: 1px solid #e2e8f0;
   border-radius: 1rem;
   background: #fff;
-  box-shadow: 0 2px 4px rgb(15 23 42 / 2%);
 }
 h2 {
   margin: 0;
@@ -224,13 +220,10 @@ dd {
 .grand-total dd {
   font-size: 2rem;
   font-weight: 700;
-  letter-spacing: -0.04em;
 }
 .grand-total span {
   color: #475569;
   font-size: 0.75rem;
-  font-weight: 400;
-  letter-spacing: normal;
 }
 .secondary-link,
 .primary-link {
@@ -296,4 +289,16 @@ dd {
   .item-amounts {
     gap: 0.5rem;
   }
+}
+
+.confirm-sale {
+  margin-top: 1rem;
+  width: 100%;
+}
+.error {
+  color: #b91c1c;
+  font-size: 0.875rem;
+}
+.error:empty {
+  display: none;
 }

@@ -1,27 +1,23 @@
 # Catálogo del vendedor
 
-Ruta lazy: `/seller/catalog`. `CatalogPage` mantiene la búsqueda y el carrito con
-signals; `CatalogLayout` organiza el encabezado y el contenido. `CatalogToolbar`
-es un organismo y `CatalogSearch` una molécula con `NgpSearch`, `NgpInput` y
-`NgpSearchClear`. Se reutilizan `ButtonField` y `BookCover`.
+Ruta lazy: `/seller/catalog`. Carga los 100 libros de `public/stock.json` mediante
+`Storage`; valida el contrato antes de exponerlos y permite reintentar ante errores.
 
-La página recibe `username` y `books` como inputs; el catálogo usa el contrato
-`CatalogBook`. Actualmente muestra `DEMO_BOOKS` y el nombre `Usuario`. Reemplaza
-esos datos desde el contenedor o la integración de inventario y sesión.
+`CatalogPage` coordina búsqueda, filtros, orden, paginación y diálogos. Usa señales
+para estado y valores derivados. `q`, `availability` y `sort` se sincronizan con los
+parámetros de URL. La búsqueda compara título, autor e ISBN sin distinguir acentos.
 
-La búsqueda compara título y autor, ignorando mayúsculas y acentos. El botón de
-limpiar y Escape restablecen el filtro. El carrito cuenta unidades, conserva sus
-elementos al filtrar y permite quitarlos desde un diálogo. Solo agrega libros
-disponibles aquí (`yes`) y hasta el número de copias indicado. Es estado local:
-se pierde al recargar o salir de la página; no reserva inventario ni procesa ventas.
+`BookCover` presenta título completo, autor, precio y disponibilidad. La acción de
+agregar está deshabilitada sin existencias, en otra sucursal o al alcanzar el límite
+del carrito. Las primeras portadas tienen prioridad de carga; las imágenes fallidas
+usan un recurso local. “Cargar más” mueve el foco al primer resultado añadido.
 
-Información y carrito usan diálogos nativos con cierre por Escape y restauración
-de foco. El botón de salir vacía el carrito y navega a `/auth`; cuando exista un
-servicio de sesión, `logout()` debe llamar también a la operación de cierre real.
-No se ha añadido un guard de autenticación porque el proyecto todavía no tiene
-un proveedor de sesión configurado.
+`Cart` conserva cantidades y snapshots con `LocalPersistence`; el catálogo reconcilia
+las líneas guardadas con el inventario al cargar. Los cambios se conservan al navegar,
+filtrar y recargar. Salir del acceso demo restablece el nombre, conservando el carrito;
+“Restablecer demo” elimina carrito, tickets y nombre de esta aplicación.
 
-El usuario aparece a la izquierda, la canasta junto al lado izquierdo del buscador
-y salir al extremo derecho. En móvil la canasta y el buscador comparten una segunda
-fila y la cuadrícula tiene dos columnas. El contador representa el total de unidades,
-no la cantidad de títulos distintos.
+Los diálogos se implementan con Angular Primitives: contienen el foco, bloquean el
+scroll exterior, cierran con Escape y restauran el foco. El checkout registra ventas
+simuladas en `Sales` y abre una ruta de ticket persistente e imprimible. El catálogo
+ofrece acceso al último ticket. No hay autenticación real ni reserva de existencias.

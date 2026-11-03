@@ -1,13 +1,14 @@
 <div class="section-heading"><h2 id="payment-title">Forma de pago</h2></div>
 <p class="section-description" id="payment-description">
-  Selecciona una opción para consultar sus detalles.
+  Selecciona una opción para simular el pago. No se realizan cargos.
 </p>
 <div
   class="payment-methods"
   ngpRadioGroup
   aria-labelledby="payment-title"
   aria-describedby="payment-description"
-  [(ngpRadioGroupValue)]="paymentMethod"
+  [ngpRadioGroupValue]="method()"
+  (ngpRadioGroupValueChange)="selectMethod($event)"
 >
   <button class="payment-method" type="button" ngpRadioItem ngpRadioItemValue="cash">
     <span class="method-icon" aria-hidden="true">$</span>
@@ -34,7 +35,7 @@
   </button>
 </div>
 <div class="payment-detail">
-  @switch (paymentMethod()) {
+  @switch (method()) {
     @case ('cash') {
       <h3>Pago en efectivo</h3>
       <p>Ingresa el importe recibido para calcular el cambio.</p>
@@ -75,12 +76,18 @@
     }
     @case ('card') {
       <h3>Pago con tarjeta</h3>
-      <p>El cobro con tarjeta aún no está habilitado. No se solicitarán datos de tu tarjeta.</p>
+      <p>
+        Simularemos la aprobación del pago por el total de la compra. No ingreses datos de tarjeta.
+      </p>
     }
     @case ('transfer') {
       <h3>Transferencia bancaria</h3>
-      <p>Los datos bancarios para realizar transferencias aún no están disponibles.</p>
+      <p>
+        Simularemos la recepción de la transferencia por el total. No necesitas datos bancarios.
+      </p>
     }
   }
 </div>
-<p class="payment-note">Seleccionar una forma de pago no realiza cargos ni registra la compra.</p>
+<p class="payment-note">
+  La venta se registra únicamente en esta demo al pulsar “Confirmar venta simulada”.
+</p>

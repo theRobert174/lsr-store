@@ -19,10 +19,15 @@ export interface LoginCredentials {
       (submit)="onSubmit($event)"
     >
       <header>
-        <p class="eyebrow">TU PUNTO DE VENTA</p>
-        <h1 id="login-title">Bienvenido de nuevo</h1>
-        <p>Ingresa a tu cuenta para comenzar el día en tu librería.</p>
+        <p class="eyebrow">PUNTO DE VENTA · DEMOSTRACIÓN</p>
+        <h1 id="login-title">Explora LSR Librería</h1>
+        <p>
+          Explora el catálogo, prepara una venta y genera un ticket. Todo funciona en tu navegador.
+        </p>
       </header>
+
+      <button btn-field type="button" size="lg" (click)="demoEnter.emit()">Explorar demo</button>
+      <p class="help">También puedes probar las validaciones del formulario con datos ficticios.</p>
 
       <input-field
         label="Usuario"
@@ -50,9 +55,11 @@ export interface LoginCredentials {
         }
       </div>
       <button btn-field type="submit" size="lg" [disabled]="fields()().submitting()">
-        {{ fields()().submitting() ? 'Ingresando…' : 'Iniciar sesión' }}
+        {{ fields()().submitting() ? 'Ingresando…' : 'Probar acceso simulado' }}
       </button>
-      <p class="help">¿Necesitas acceso? Contacta al administrador de tu librería.</p>
+      <p class="help">
+        Acceso simulado: cualquier usuario y contraseña no vacíos. No uses credenciales reales.
+      </p>
     </form>
   `,
   styleUrl: './LoginForm.css',
@@ -61,6 +68,7 @@ export class LoginForm {
   readonly fields = input.required<FieldTree<LoginCredentials>>();
   readonly errorMessage = input('');
   readonly statusMessage = input('');
+  readonly demoEnter = output<void>();
   readonly loginSubmit = output<void>();
 
   protected onSubmit(event: Event): void {

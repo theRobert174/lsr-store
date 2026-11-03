@@ -1,19 +1,22 @@
 :host {
-  position: relative;
-  display: block;
-  isolation: isolate;
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   min-width: 0;
-  aspect-ratio: 9 / 16;
+  border: 1px solid #d8ded8;
+  border-radius: 0.75rem;
   overflow: hidden;
-  border-radius: 0.375rem;
-  background: linear-gradient(135deg, #645747, #302a24);
-  color: #fff;
-  font-family: inherit;
+  background: #fff;
+  color: #172d28;
 }
-
+.cover-frame {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  background: #e9e4dc;
+}
 .cover-image {
-  object-fit: cover;
+  object-fit: contain;
+  padding: 0.75rem;
 }
 .image-pending {
   opacity: 0;
@@ -21,7 +24,7 @@
 .cover-skeleton {
   position: absolute;
   inset: 0;
-  background: linear-gradient(110deg, #645747 30%, #7a6b59 45%, #645747 60%);
+  background: linear-gradient(110deg, #e9e4dc 30%, #f9f6f0 45%, #e9e4dc 60%);
   background-size: 200% 100%;
   animation: cover-loading 1.5s ease-in-out infinite;
 }
@@ -30,178 +33,67 @@
     background-position: -200% 0;
   }
 }
-
-button {
-  position: absolute;
-  display: grid;
-  place-items: center;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: #fff;
-  cursor: pointer;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-}
-
-button:focus-visible {
-  outline: 3px solid #fff;
-  outline-offset: -5px;
-  box-shadow: inset 0 0 0 7px #111827;
-}
-
-.add-action {
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  min-height: 2.75rem;
-  min-width: 2.75rem;
-}
-
-.add-icon {
-  opacity: 0;
-  font-size: clamp(2.75rem, 8vw, 4.5rem);
-  filter: drop-shadow(0 2px 4px #000);
-  transition: opacity 400ms ease-in-out;
-}
-
-.add-action[data-press] .add-icon,
-.add-action:focus-visible .add-icon {
-  opacity: 1;
-}
-
-.feedback-odd {
-  animation: add-feedback-odd 700ms ease-in-out;
-}
-
-.feedback-even {
-  animation: add-feedback-even 700ms ease-in-out;
-}
-
-/* Alternate names restart feedback even for consecutive fast activations. */
-@keyframes add-feedback-odd {
-  0%,
-  25% {
-    opacity: 1;
-    transform: scale(1.08);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1);
-  }
-}
-
-@keyframes add-feedback-even {
-  0%,
-  25% {
-    opacity: 1;
-    transform: scale(1.08);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1);
-  }
-}
-
-.info-action {
-  top: 0.375rem;
-  right: 0.375rem;
-  width: 2.75rem;
-  height: 2.75rem;
-  border-radius: 50%;
-  background: #111827;
-  font-size: 1.75rem;
-}
-
 .details {
-  position: absolute;
-  inset: auto 0 0;
   display: flex;
-  align-items: flex-end;
-  gap: 0.5rem;
-  padding: 3rem 0.75rem 0.875rem;
-  background: linear-gradient(transparent, rgb(0 0 0 / 90%) 55%, #090909);
-  pointer-events: none;
-}
-
-.text {
+  flex-direction: column;
   flex: 1;
-  min-width: 0;
+  gap: 0.5rem;
+  padding: 1rem;
 }
-
-p {
-  overflow: hidden;
+p,
+h2 {
   margin: 0;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow-wrap: anywhere;
 }
-
 .author {
+  color: #475569;
+  font-size: 0.8125rem;
+}
+h2 {
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.45;
+}
+.price {
+  font-weight: 700;
+  font-size: 1.125rem;
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+.price span {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+.availability-label {
+  color: #475569;
   font-size: 0.75rem;
   line-height: 1.5;
 }
-
-.title {
-  font-size: 0.9375rem;
+:host([data-availability='yes']) .availability-label {
+  color: #166534;
+}
+.in-cart {
+  font-size: 0.75rem;
   font-weight: 600;
-  line-height: 1.5;
 }
-
-.copies {
-  flex: none;
-  color: #fda4af;
-  font-size: 1.875rem;
-  font-weight: 700;
-  line-height: 1;
+.actions {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
 }
-
-.availability-label {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
+button {
+  width: 100%;
+  min-height: 44px;
+  white-space: normal;
+  font-size: 0.8125rem;
 }
-
-:host([data-availability='yes']) .copies {
-  color: #86efac;
+@media (max-width: 480px) {
+  .details {
+    padding: 0.75rem;
+  }
 }
-
-:host([data-availability='yes-but-not-here']) .copies {
-  color: #fde047;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .cover-skeleton {
     animation: none;
-  }
-  .add-icon {
-    animation: none;
-    transition: none;
-  }
-}
-
-@media (forced-colors: active) {
-  :host {
-    outline: 1px solid CanvasText;
-  }
-  .details {
-    background: Canvas;
-    color: CanvasText;
-  }
-  .copies {
-    color: CanvasText !important;
-  }
-  button {
-    color: ButtonText;
-    background: ButtonFace;
-  }
-  .add-action {
-    background: transparent;
-  }
-  button:focus-visible {
-    outline-color: Highlight;
   }
 }

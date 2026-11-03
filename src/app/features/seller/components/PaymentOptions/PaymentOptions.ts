@@ -1,7 +1,8 @@
 import { CurrencyPipe } from '@angular/common';
-import { Component, computed, input, signal } from '@angular/core';
+import { Component, computed, input, model } from '@angular/core';
 import { form, FormField, min } from '@angular/forms/signals';
 import { NgpRadioGroup, NgpRadioItem } from 'ng-primitives/radio';
+import { isPaymentMethod, PaymentMethod, toCents } from '@core/services/Sales';
 
 @Component({
   selector: 'payment-options',
@@ -12,17 +13,15 @@ import { NgpRadioGroup, NgpRadioItem } from 'ng-primitives/radio';
 export class PaymentOptions {
   readonly totalCents = input.required<number>();
 
-  protected readonly paymentMethod = signal<string | null>('cash');
-  protected readonly cash = signal<{ received: number | null }>({ received: null });
+  readonly method = model<PaymentMethod>('cash');
+  readonly cash = model<{ received: number | null }>({ received: null });
   protected readonly cashForm = form(this.cash, (path) => {
     min(path.received, 0, { message: 'Ingresa un importe válido igual o mayor que cero.' });
   });
-  protected readonly receivedCents = computed(() => {
-    const received = this.cash().received;
-    return received !== null && Number.isFinite(received) && received >= 0
-      ? Math.round(received * 100)
-      : null;
-  });
+  protected readonly receivedCents = computed(() => toCents(this.cash().received));
+  protected selectMethod(value: string | null | undefined): void {
+    if (isPaymentMethod(value)) this.method.set(value);
+  }
   protected readonly invalidCash = computed(
     () => this.cash().received !== null && this.receivedCents() === null,
   );

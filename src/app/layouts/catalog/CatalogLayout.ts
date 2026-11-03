@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
     <a class="skip-link" href="#catalog-content">Saltar al catálogo</a>
     <header><ng-content select="[catalogHeader]" /></header>
     <main id="catalog-content" tabindex="-1">
-      <h1 class="sr-only">Catálogo de libros</h1>
       <ng-content />
     </main>
   `,

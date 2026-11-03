@@ -6,6 +6,7 @@ async function setup() {
   fixture.componentRef.setInput('title', 'Un título muy largo para la portada del libro');
   fixture.componentRef.setInput('author', 'Una autora');
   fixture.componentRef.setInput('copies', 5);
+  fixture.componentRef.setInput('availability', 'yes');
   await fixture.whenStable();
   const element: HTMLElement = fixture.nativeElement;
   return { fixture, element };
@@ -63,4 +64,23 @@ describe('BookCover', () => {
     await fixture.whenStable();
     expect(image.getAttribute('src')).toBe('https://example.com/second.jpg');
   });
+});
+
+it('disables adding for unavailable books and when the cart reaches stock', async () => {
+  const { fixture, element } = await setup();
+  const added = vi.fn();
+  fixture.componentInstance.addClick.subscribe(added);
+  const add = element.querySelector<HTMLButtonElement>('.add-action')!;
+  for (const availability of ['no', 'yes-but-not-here']) {
+    fixture.componentRef.setInput('availability', availability);
+    await fixture.whenStable();
+    expect(add.disabled).toBe(true);
+    add.click();
+  }
+  fixture.componentRef.setInput('availability', 'yes');
+  fixture.componentRef.setInput('inCart', 5);
+  await fixture.whenStable();
+  expect(add.disabled).toBe(true);
+  add.click();
+  expect(added).not.toHaveBeenCalled();
 });

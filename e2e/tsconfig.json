@@ -7,5 +7,5 @@
     "types": ["node"]
   },
   "files": [],
-  "include": ["./**/*.ts", "../playwright.config.ts"]
+  "include": ["./**/*.ts", "../playwright.config.ts", "../playwright.production.config.ts"]
 }

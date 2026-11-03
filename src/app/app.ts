@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { DemoNotice } from '@components/organisms/DemoNotice/DemoNotice';
 
 @Component({
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, DemoNotice],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',

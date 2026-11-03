@@ -17,17 +17,18 @@ import { NgpButton } from 'ng-primitives/button';
       #search
       ngpInput
       type="search"
-      aria-label="Buscar por título o autor"
-      placeholder="Buscar por título o autor"
+      aria-label="Buscar por título, autor o ISBN"
+      placeholder="Buscar por título, autor o ISBN"
       [value]="query()"
       (input)="query.set(search.value)"
+      (keydown.escape)="clear(search)"
     />
     <button
       ngpSearchClear
       ngpButton
       type="button"
       aria-label="Limpiar búsqueda"
-      (click)="search.focus()"
+      (click)="clear(search)"
     >
       <ng-icon name="bootstrapX" aria-hidden="true" />
     </button>
@@ -107,4 +108,10 @@ import { NgpButton } from 'ng-primitives/button';
 })
 export class CatalogSearch {
   readonly query = model('');
+
+  protected clear(input: HTMLInputElement): void {
+    this.query.set('');
+    input.value = '';
+    input.focus();
+  }
 }

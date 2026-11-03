@@ -11,7 +11,12 @@
     "e2e:ui": "playwright test --ui",
     "e2e:report": "playwright show-report",
     "e2e:install": "playwright install chromium",
-    "e2e:typecheck": "tsc --project e2e/tsconfig.json"
+    "e2e:typecheck": "tsc --project e2e/tsconfig.json",
+    "preview": "node scripts/preview.mjs",
+    "e2e:production": "playwright test --config=playwright.production.config.ts",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "screenshots": "UPDATE_SCREENSHOTS=1 playwright test e2e/screenshots.spec.ts --project=chromium"
   },
   "private": true,
   "packageManager": "pnpm@12.15.0",
@@ -44,5 +49,8 @@
     "tailwindcss": "^4.1.12",
     "typescript": "~6.0.2",
     "vitest": "^5.0.0"
+  },
+  "engines": {
+    "node": "^22.22.3 || ^24.15.0 || >=26.0.0"
   }
 }

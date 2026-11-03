@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { disabled, form, required, submit } from '@angular/forms/signals';
 import { Router } from '@angular/router';
+import { User } from '@core/auth/User';
 import { AuthLayout } from '@layouts/auth/AuthLayout';
 import { LoginCredentials, LoginForm } from '@components/organisms/LoginForm/LoginForm';
 
@@ -9,11 +10,17 @@ import { LoginCredentials, LoginForm } from '@components/organisms/LoginForm/Log
   imports: [AuthLayout, LoginForm],
   template: `
     <auth-layout>
-      <login-form authContent [fields]="loginForm" (loginSubmit)="login()" />
+      <login-form
+        authContent
+        [fields]="loginForm"
+        (loginSubmit)="login()"
+        (demoEnter)="enterDemo()"
+      />
     </auth-layout>
   `,
 })
 export class AuthPage {
+  private readonly user = inject(User);
   private readonly router = inject(Router);
   protected readonly credentials = signal<LoginCredentials>({
     username: 'user1',
@@ -24,6 +31,11 @@ export class AuthPage {
     required(path.password, { message: 'Ingresa tu contraseña.' });
     disabled(path, { when: ({ state }) => state.submitting() });
   });
+
+  protected enterDemo(): void {
+    this.user.enterDemo();
+    void this.router.navigateByUrl('/seller/catalog');
+  }
 
   protected async login(): Promise<void> {
     if (this.loginForm().submitting()) return;
@@ -36,6 +48,7 @@ export class AuthPage {
         firstInvalid?.().focusBoundControl();
       },
       action: async () => {
+        this.user.enterDemo(this.credentials().username);
         await this.router.navigateByUrl('/seller/catalog');
       },
     });

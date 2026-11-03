@@ -1,0 +1,73 @@
+<a class="skip-link" href="#receipt-main">Saltar al ticket</a>
+<main id="receipt-main">
+  <p class="brand">LSR · Librería</p>
+  <h1 #pageTitle tabindex="-1">
+    {{ sale() ? 'Venta simulada completada' : 'Ticket no disponible' }}
+  </h1>
+  @if (sale(); as receipt) {
+    <p>Este ticket es una demostración. No acredita una compra ni un pago real.</p>
+    <article aria-labelledby="receipt-title">
+      <h2 id="receipt-title">Ticket de venta simulada</h2>
+      <dl class="metadata">
+        <div>
+          <dt>Operación</dt>
+          <dd>{{ receipt.id }}</dd>
+        </div>
+        <div>
+          <dt>Fecha</dt>
+          <dd>{{ receipt.createdAt | date: 'dd/MM/yyyy HH:mm' }}</dd>
+        </div>
+        <div>
+          <dt>Forma de pago</dt>
+          <dd>{{ paymentLabels[receipt.method] }}</dd>
+        </div>
+      </dl>
+      <ul class="items" aria-label="Artículos del ticket">
+        @for (row of summary().rows; track row.book.id) {
+          <li>
+            <div>
+              <h3>{{ row.book.title }}</h3>
+              <p>{{ row.book.author }}</p>
+              <p>
+                {{ row.quantity }} ×
+                {{ row.unitPriceCents / 100 | currency: 'MXN' : 'symbol-narrow' : '1.2-2' }}
+              </p>
+            </div>
+            <strong>{{
+              row.subtotalCents / 100 | currency: 'MXN' : 'symbol-narrow' : '1.2-2'
+            }}</strong>
+          </li>
+        }
+      </ul>
+      <dl class="totals">
+        <div>
+          <dt>Artículos</dt>
+          <dd>{{ summary().count }}</dd>
+        </div>
+        <div>
+          <dt>Total (MXN)</dt>
+          <dd>{{ receipt.totalCents / 100 | currency: 'MXN' : 'symbol-narrow' : '1.2-2' }}</dd>
+        </div>
+        <div>
+          <dt>Importe recibido</dt>
+          <dd>{{ receipt.receivedCents / 100 | currency: 'MXN' : 'symbol-narrow' : '1.2-2' }}</dd>
+        </div>
+        <div>
+          <dt>Cambio</dt>
+          <dd>{{ receipt.changeCents / 100 | currency: 'MXN' : 'symbol-narrow' : '1.2-2' }}</dd>
+        </div>
+      </dl>
+      <p class="footnote">
+        Demo de portafolio · Importes en pesos mexicanos. El inventario es ilustrativo y no se
+        reserva.
+      </p>
+    </article>
+    <nav aria-label="Acciones del ticket">
+      <button btn-field (click)="print()">Imprimir ticket</button>
+      <a routerLink="/seller/catalog">Comenzar otra venta</a>
+    </nav>
+  } @else {
+    <p>El ticket no existe en este navegador o se borró al restablecer la demo.</p>
+    <a routerLink="/seller/catalog">Volver al catálogo</a>
+  }
+</main>

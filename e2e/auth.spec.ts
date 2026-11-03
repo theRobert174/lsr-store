@@ -1,16 +1,16 @@
 import AxeBuilder from '@axe-core/playwright';
-import { expect, test } from '@playwright/test';
+import { expect, test } from './fixtures/test';
 
 test.beforeEach(async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'Bienvenido de nuevo' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Explora LSR Librería' })).toBeVisible();
 });
 
 test('abre auth como página inicial con campos accesibles y sin errores', async ({ page }) => {
   await expect(page).toHaveURL('/auth');
   await expect(page.getByLabel('Usuario', { exact: true })).toHaveValue('user1');
   await expect(page.getByLabel('Contraseña', { exact: true })).toHaveValue('password1');
-  await expect(page).toHaveTitle('Iniciar sesión | LSR Librería');
+  await expect(page).toHaveTitle('Explora la demo | LSR Librería');
   await expect(page.getByLabel('Usuario', { exact: true })).toHaveAttribute(
     'autocomplete',
     'username',
@@ -20,7 +20,7 @@ test('abre auth como página inicial con campos accesibles y sin errores', async
     'autocomplete',
     'current-password',
   );
-  await expect(page.getByRole('button', { name: 'Iniciar sesión' })).toBeEnabled();
+  await expect(page.getByRole('button', { name: 'Probar acceso simulado' })).toBeEnabled();
   await expect(page.getByText('Ingresa tu usuario.', { exact: true })).toHaveCount(0);
   await expect(page.getByText('Ingresa tu contraseña.', { exact: true })).toHaveCount(0);
 });
@@ -30,13 +30,13 @@ test('permite acceder directamente a auth y recupera rutas desconocidas', async 
   await expect(page.getByLabel('Usuario', { exact: true })).toBeVisible();
   await page.goto('/ruta-inexistente');
   await expect(page).toHaveURL('/auth');
-  await expect(page.getByRole('heading', { name: 'Bienvenido de nuevo' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Explora LSR Librería' })).toBeVisible();
 });
 
 test('valida ambos campos vacíos y enfoca el usuario', async ({ page }) => {
   await page.getByLabel('Usuario', { exact: true }).fill('');
   await page.getByLabel('Contraseña', { exact: true }).fill('');
-  await page.getByRole('button', { name: 'Iniciar sesión' }).click();
+  await page.getByRole('button', { name: 'Probar acceso simulado' }).click();
   await expect(page.getByText('Ingresa tu usuario.', { exact: true })).toBeVisible();
   await expect(page.getByText('Ingresa tu contraseña.', { exact: true })).toBeVisible();
   const username = page.getByLabel('Usuario', { exact: true });
@@ -62,7 +62,7 @@ test('acepta un usuario sin formato de correo y enfoca la contraseña faltante',
 }) => {
   await page.getByLabel('Usuario', { exact: true }).fill('librero');
   await page.getByLabel('Contraseña', { exact: true }).fill('');
-  await page.getByRole('button', { name: 'Iniciar sesión' }).click();
+  await page.getByRole('button', { name: 'Probar acceso simulado' }).click();
   await expect(page.getByText('Ingresa tu usuario.', { exact: true })).toHaveCount(0);
   await expect(page.getByText('Ingresa tu contraseña.', { exact: true })).toBeVisible();
   await expect(page.getByLabel('Contraseña', { exact: true })).toBeFocused();
@@ -72,7 +72,8 @@ test('acepta un usuario sin formato de correo y enfoca la contraseña faltante',
 test('recorre el formulario con teclado y permite enviar con Enter', async ({ page }) => {
   const username = page.getByLabel('Usuario', { exact: true });
   const password = page.getByLabel('Contraseña', { exact: true });
-  const submit = page.getByRole('button', { name: 'Iniciar sesión' });
+  const submit = page.getByRole('button', { name: 'Probar acceso simulado' });
+  await page.getByRole('button', { name: 'Explorar demo', exact: true }).focus();
   await page.keyboard.press('Tab');
   await expect(username).toBeFocused();
   await username.fill('librero');
@@ -88,7 +89,7 @@ test('recorre el formulario con teclado y permite enviar con Enter', async ({ pa
 test('abre el catálogo con las credenciales precargadas al hacer clic en login', async ({
   page,
 }) => {
-  await page.getByRole('button', { name: 'Iniciar sesión' }).click();
+  await page.getByRole('button', { name: 'Probar acceso simulado' }).click();
   await expect(page).toHaveURL('/seller/catalog');
 });
 
@@ -121,7 +122,7 @@ test('pasa AXE al cargar y al mostrar errores de validación', async ({ page }) 
   expect((await scan()).violations).toEqual([]);
   await page.getByLabel('Usuario', { exact: true }).fill('');
   await page.getByLabel('Contraseña', { exact: true }).fill('');
-  await page.getByRole('button', { name: 'Iniciar sesión' }).click();
+  await page.getByRole('button', { name: 'Probar acceso simulado' }).click();
   await expect(page.getByText('Ingresa tu usuario.', { exact: true })).toBeVisible();
   expect((await scan()).violations).toEqual([]);
 });

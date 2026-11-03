@@ -13,7 +13,7 @@
   <header class="page-header">
     <p class="eyebrow">Tu compra, a detalle</p>
     <h1 #pageTitle tabindex="-1">Resumen de compra</h1>
-    <p class="intro">Revisa los artículos y elige cómo deseas pagar.</p>
+    <p class="intro">Revisa los artículos y elige cómo deseas simular el pago.</p>
   </header>
 
   @if (summary().count === 0) {
@@ -67,7 +67,15 @@
         </section>
 
         <section class="panel" aria-labelledby="payment-title">
-          <payment-options [totalCents]="summary().totalCents" />
+          <payment-options
+            [totalCents]="summary().totalCents"
+            [(method)]="method"
+            [(cash)]="cash"
+          />
+          <p class="error" role="alert">{{ error() }}</p>
+          <button btn-field class="confirm-sale" [disabled]="!canConfirm()" (click)="confirm()">
+            {{ processing() ? 'Registrando…' : 'Confirmar venta simulada' }}
+          </button>
         </section>
       </div>
 
