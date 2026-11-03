@@ -1,0 +1,151 @@
+:host {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-block: 0.5rem;
+  font: inherit;
+  line-height: 1.5;
+  border-radius: var(--lsr-button-radius);
+  color: var(--lsr-button-text-primary);
+  border: none;
+  min-height: 2.75rem;
+  font-weight: 500;
+  background-color: var(--lsr-button-background);
+  transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--lsr-button-shadow);
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  gap: 0.5rem;
+}
+:host(:focus-visible),
+:host[data-focus-visible] {
+  outline: 2px solid var(--lsr-button-focus-ring);
+  outline-offset: 3px;
+}
+/* Size variants */
+:host[data-size='sm'] {
+  min-height: 2.25rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  font-size: 0.875rem;
+  --ng-icon__size: 0.875rem;
+}
+:host[data-size='md'],
+:host:not([data-size]) {
+  min-height: 2.75rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-size: 0.875rem;
+  --ng-icon__size: 0.875rem;
+}
+:host[data-size='lg'] {
+  min-height: 3rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  font-size: 1rem;
+  --ng-icon__size: 1rem;
+}
+:host[data-size='xl'] {
+  min-height: 3.5rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  font-size: 1.125rem;
+  --ng-icon__size: 1.125rem;
+}
+/* Variant styles */
+:host[data-variant='primary'],
+:host:not([data-variant]) {
+  background-color: var(--lsr-button-background);
+  color: var(--lsr-button-text-primary);
+  border: none;
+}
+:host[data-variant='primary'][data-hover]:not([data-disabled]),
+:host:not([data-variant])[data-hover]:not([data-disabled]) {
+  background-color: var(--lsr-button-background-hover);
+}
+:host[data-variant='primary'][data-press]:not([data-disabled]),
+:host:not([data-variant])[data-press]:not([data-disabled]) {
+  background-color: var(--lsr-button-background-active);
+}
+:host[data-variant='secondary'] {
+  background-color: var(--lsr-button-secondary-background);
+  color: var(--lsr-button-secondary-text);
+  border: none;
+}
+:host[data-variant='secondary'][data-hover]:not([data-disabled]) {
+  background-color: var(--lsr-button-secondary-background-hover);
+}
+:host[data-variant='secondary'][data-press]:not([data-disabled]) {
+  background-color: var(--lsr-button-secondary-background-active);
+}
+:host[data-variant='destructive'] {
+  background-color: var(--lsr-button-destructive-background);
+  color: var(--lsr-button-destructive-text);
+  border: none;
+}
+:host[data-variant='destructive'][data-hover]:not([data-disabled]) {
+  background-color: var(--lsr-button-destructive-background-hover);
+}
+:host[data-variant='destructive'][data-press]:not([data-disabled]) {
+  background-color: var(--lsr-button-destructive-background-active);
+}
+:host[data-variant='outline'] {
+  background-color: var(--lsr-button-surface);
+  color: var(--lsr-button-text-on-surface);
+  border: 1px solid var(--lsr-button-outline-border);
+  box-shadow: none;
+}
+:host[data-variant='outline'][data-hover]:not([data-disabled]) {
+  background-color: var(--lsr-button-secondary-background-hover);
+  border-color: var(--lsr-button-outline-border-hover);
+}
+:host[data-variant='outline'][data-press]:not([data-disabled]) {
+  background-color: var(--lsr-button-outline-background-active);
+}
+:host[data-variant='ghost'] {
+  background-color: var(--lsr-button-surface);
+  color: var(--lsr-button-text-on-surface);
+  border: none;
+  box-shadow: none;
+}
+:host[data-variant='ghost'][data-hover]:not([data-disabled]) {
+  background-color: var(--lsr-button-secondary-background-hover);
+}
+:host[data-variant='ghost'][data-press]:not([data-disabled]) {
+  background-color: var(--lsr-button-secondary-background-active);
+}
+:host[data-variant='link'] {
+  background-color: var(--lsr-button-surface);
+  color: var(--lsr-button-link-color);
+  border: none;
+  box-shadow: none;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+:host[data-variant='link'][data-hover]:not([data-disabled]) {
+  text-decoration-thickness: 2px;
+}
+:host[data-disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+/* Reduce motion for users who prefer reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  :host {
+    transition-duration: 0s;
+  }
+}
+
+@media (forced-colors: active) {
+  :host {
+    border: 1px solid ButtonText;
+  }
+
+  :host[data-disabled] {
+    border-color: GrayText;
+    color: GrayText;
+    opacity: 1;
+  }
+}

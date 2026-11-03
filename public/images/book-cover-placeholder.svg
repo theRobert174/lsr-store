@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="450" height="800" viewBox="0 0 450 800" fill="none">
+  <defs>
+    <linearGradient id="cover" x2="450" y2="800" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#73614d"/>
+      <stop offset="1" stop-color="#302a24"/>
+    </linearGradient>
+    <pattern id="texture" width="450" height="18" patternUnits="userSpaceOnUse">
+      <path d="M0 9Q110 0 225 9T450 9" stroke="#fff" stroke-opacity=".045"/>
+    </pattern>
+  </defs>
+  <path fill="url(#cover)" d="M0 0h450v800H0z"/>
+  <path fill="url(#texture)" d="M0 0h450v800H0z"/>
+  <path fill="#000" fill-opacity=".18" d="M18 0h10v800H18z"/>
+  <rect x="49" y="29" width="374" height="742" rx="3" stroke="#d8c3a0" stroke-opacity=".3"/>
+  <g stroke="#d8c3a0" stroke-width="4" stroke-linejoin="round" opacity=".65">
+    <path d="M225 361c-22-16-48-20-74-14v81c27-6 52-2 74 14 22-16 47-20 74-14v-81c-26-6-52-2-74 14Z"/>
+    <path d="M225 361v81"/>
+  </g>
+</svg>

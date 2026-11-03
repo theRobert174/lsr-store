@@ -1,0 +1,140 @@
+:host {
+  display: block;
+}
+* {
+  box-sizing: border-box;
+}
+h2 {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+.section-description {
+  margin: 0.75rem 0 0;
+  color: #475569;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid #1d4ed8;
+  outline-offset: 4px;
+}
+dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+.payment-methods {
+  display: flex;
+  gap: 0.625rem;
+  flex-wrap: wrap;
+  margin-top: 1.25rem;
+}
+.payment-method {
+  display: flex;
+  flex: 1 1 8rem;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 3.5rem;
+  padding: 0.75rem;
+  border: 1px solid #94a3b8;
+  border-radius: 0.625rem;
+  background: #fff;
+  color: #475569;
+  font: inherit;
+  font-size: 0.8125rem;
+  cursor: pointer;
+}
+.payment-method[data-checked] {
+  border-color: #1d4ed8;
+  background: #eff6ff;
+  color: #1e40af;
+  box-shadow: inset 0 0 0 1px #1d4ed8;
+}
+.method-icon {
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  text-align: center;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.25rem;
+}
+.radio-indicator {
+  flex: none;
+  width: 0.875rem;
+  height: 0.875rem;
+  margin-left: auto;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+}
+[data-checked] .radio-indicator {
+  border: 4px solid #1d4ed8;
+}
+.payment-detail {
+  margin-top: 1.25rem;
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  background: #f8fafc;
+}
+.payment-detail h3 {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+.payment-detail p {
+  margin: 0.5rem 0 1rem;
+  color: #475569;
+  font-size: 0.8125rem;
+  line-height: 1.7;
+}
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+input {
+  width: 100%;
+  max-width: 17rem;
+  min-height: 2.875rem;
+  padding: 0.75rem;
+  border: 1px solid #64748b;
+  border-radius: 0.5rem;
+  background: #fff;
+  color: #172033;
+  font: inherit;
+}
+.cash-result {
+  margin-top: 1rem;
+}
+.cash-result div {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+.cash-result dd {
+  font-weight: 700;
+}
+.payment-detail .error {
+  color: #b91c1c;
+}
+.payment-note {
+  margin: 1rem 0 0;
+  color: #64748b;
+  font-size: 0.75rem;
+  line-height: 1.7;
+}
+@media (forced-colors: active) {
+  .payment-method[data-checked] {
+    outline: 2px solid Highlight;
+  }
+  .radio-indicator {
+    forced-color-adjust: none;
+    color: CanvasText;
+  }
+  [data-checked] .radio-indicator {
+    border-color: Highlight;
+  }
+}

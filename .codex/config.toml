@@ -1,3 +1,13 @@
 [mcp_servers.angular-cli]
 command = "npx"
 args = ["-y", "@angular/cli", "mcp"]
+
+[mcp_servers.angular-cli.tools.run_target]
+approval_mode = "approve"
+
+[mcp_servers.ngp-mcp]
+command = "npx"
+args = ["-y", "@ng-primitives/mcp"]
+
+[mcp_servers.ngp-mcp.tools.get_primitive_details]
+approval_mode = "approve"

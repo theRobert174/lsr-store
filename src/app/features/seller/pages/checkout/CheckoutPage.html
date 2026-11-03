@@ -1,0 +1,102 @@
+<a class="skip-link" href="#checkout-main">Saltar al resumen de compra</a>
+<header class="topbar">
+  <a class="brand" routerLink="/seller/catalog">
+    <span class="brand-mark">LSR</span>
+    <span>Librería <span class="brand-caption">Punto de venta</span></span>
+  </a>
+  <a class="back-link" routerLink="/seller/catalog"
+    ><span aria-hidden="true">←</span> Volver al catálogo</a
+  >
+</header>
+
+<main id="checkout-main">
+  <header class="page-header">
+    <p class="eyebrow">Tu compra, a detalle</p>
+    <h1 #pageTitle tabindex="-1">Resumen de compra</h1>
+    <p class="intro">Revisa los artículos y elige cómo deseas pagar.</p>
+  </header>
+
+  @if (summary().count === 0) {
+    <section class="empty-state" aria-labelledby="empty-title">
+      <span class="empty-symbol" aria-hidden="true">∅</span>
+      <h2 id="empty-title">Tu carrito está vacío</h2>
+      <p>Explora el catálogo y agrega los libros que deseas comprar.</p>
+      <a class="primary-link" routerLink="/seller/catalog">Explorar libros</a>
+    </section>
+  } @else {
+    <div class="checkout-layout">
+      <div class="purchase-details">
+        <section class="panel" aria-labelledby="items-title">
+          <div class="section-heading">
+            <h2 id="items-title">Artículos de tu compra</h2>
+            <span class="count"
+              >{{ summary().count }} {{ summary().count === 1 ? 'artículo' : 'artículos' }}</span
+            >
+          </div>
+          <ul class="items">
+            @for (row of summary().rows; track row.book.id) {
+              <li class="item">
+                <div class="item-main">
+                  <h3>{{ row.book.title }}</h3>
+                  <p>{{ row.book.author }}</p>
+                </div>
+                <dl class="item-amounts">
+                  <div>
+                    <dt>Cantidad</dt>
+                    <dd>{{ row.quantity }}</dd>
+                  </div>
+                  <div>
+                    <dt>Precio unitario</dt>
+                    <dd>
+                      {{ row.unitPriceCents / 100 | currency: 'MXN' : 'symbol-narrow' : '1.2-2' }}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Subtotal</dt>
+                    <dd class="item-total">
+                      {{ row.subtotalCents / 100 | currency: 'MXN' : 'symbol-narrow' : '1.2-2' }}
+                    </dd>
+                  </div>
+                </dl>
+              </li>
+            }
+          </ul>
+          <a class="text-link" routerLink="/seller/catalog"
+            >Volver al catálogo para editar el carrito</a
+          >
+        </section>
+
+        <section class="panel" aria-labelledby="payment-title">
+          <payment-options [totalCents]="summary().totalCents" />
+        </section>
+      </div>
+
+      <aside class="panel order-summary" aria-labelledby="totals-title">
+        <p class="eyebrow">Desglose de importes</p>
+        <h2 id="totals-title">Total de tu compra</h2>
+        <p class="section-description">Todos los importes en pesos mexicanos.</p>
+        <dl class="totals">
+          <div>
+            <dt>Artículos</dt>
+            <dd>{{ summary().count }}</dd>
+          </div>
+          <div>
+            <dt>Subtotal de libros</dt>
+            <dd>{{ summary().totalCents / 100 | currency: 'MXN' : 'symbol-narrow' : '1.2-2' }}</dd>
+          </div>
+          <div class="grand-total">
+            <dt>Total a pagar</dt>
+            <dd>
+              {{ summary().totalCents / 100 | currency: 'MXN' : 'symbol-narrow' : '1.2-2' }}
+              <span>MXN</span>
+            </dd>
+          </div>
+        </dl>
+        <p class="total-note">
+          El total corresponde a los precios y cantidades de los libros seleccionados.
+        </p>
+        <a class="secondary-link" routerLink="/seller/catalog">Seguir comprando</a>
+      </aside>
+    </div>
+  }
+</main>

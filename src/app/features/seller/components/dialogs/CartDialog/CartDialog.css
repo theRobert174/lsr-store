@@ -1,0 +1,88 @@
+:host {
+  box-sizing: border-box;
+  width: min(56rem, calc(100% - 2rem));
+  margin: auto;
+  padding: 1.5rem;
+  border: 1px solid #64748b;
+  border-radius: 0.75rem;
+  background: #fff;
+  color: #171717;
+  font-family: Arial, sans-serif;
+}
+
+:host h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+:host p {
+  margin-block: 0.75rem;
+}
+.dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+@media (max-width: 700px) {
+  :host {
+    padding: 1rem;
+  }
+}
+
+.quantity-field {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px;
+  border: 1px solid #64748b;
+  border-radius: 999px;
+  background: #fff;
+  vertical-align: middle;
+}
+.quantity-field:focus-within {
+  outline: 2px solid #1d4ed8;
+  outline-offset: 2px;
+}
+[ngpNumberFieldInput] {
+  width: 2rem;
+  height: 1.75rem;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: inherit;
+  text-align: center;
+  font: inherit;
+  font-size: 0.875rem;
+}
+[ngpNumberFieldIncrement],
+.quantity-decrease {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #0f172a;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+}
+[ngpNumberFieldIncrement]:focus-visible,
+.quantity-decrease:focus-visible {
+  outline: 2px solid #1d4ed8;
+  outline-offset: -3px;
+}
+[ngpNumberFieldIncrement][data-hover]:not([data-disabled]),
+.quantity-decrease[data-hover]:not([data-disabled]) {
+  background: #e2e8f0;
+}
+[ngpNumberFieldIncrement][data-disabled],
+.quantity-decrease[data-disabled] {
+  color: #64748b;
+  cursor: not-allowed;
+}

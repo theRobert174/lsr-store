@@ -1,3 +1,39 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import 'tailwindcss';
+
+/* Apply to current and future images, including touch interactions on WebKit. */
+img {
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Project-owned tokens: override in a theme or a container as needed. */
+:root {
+  --lsr-button-background: #1d4ed8;
+  --lsr-button-background-hover: #1e40af;
+  --lsr-button-background-active: #1e3a8a;
+  --lsr-button-text-primary: #ffffff;
+  --lsr-button-text-on-surface: #0f172a;
+  --lsr-button-surface: #ffffff;
+
+  --lsr-button-secondary-background: #f1f5f9;
+  --lsr-button-secondary-background-hover: #e2e8f0;
+  --lsr-button-secondary-background-active: #cbd5e1;
+  --lsr-button-secondary-text: #0f172a;
+
+  --lsr-button-destructive-background: #b91c1c;
+  --lsr-button-destructive-background-hover: #991b1b;
+  --lsr-button-destructive-background-active: #7f1d1d;
+  --lsr-button-destructive-text: #ffffff;
+
+  --lsr-button-outline-border: #64748b;
+  --lsr-button-outline-border-hover: #475569;
+  --lsr-button-outline-background-active: #cbd5e1;
+  --lsr-button-link-color: #1d4ed8;
+  --lsr-button-focus-ring: #1d4ed8;
+  --lsr-button-shadow: 0 1px 2px rgb(15 23 42 / 12%);
+  --lsr-button-radius: 0.5rem;
+}

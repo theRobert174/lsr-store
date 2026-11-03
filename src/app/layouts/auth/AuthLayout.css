@@ -1,0 +1,139 @@
+:host {
+  display: block;
+}
+
+main {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 3fr);
+  min-height: 100vh;
+  min-height: 100svh;
+  font-family: system-ui, sans-serif;
+}
+
+.scene {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  isolation: isolate;
+  min-height: 46rem;
+  padding: clamp(2rem, 5vw, 5rem);
+  overflow: hidden;
+  color: #fffdf6;
+  background: #183c32;
+}
+
+.scene img {
+  object-fit: cover;
+  z-index: -2;
+}
+
+.shade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    180deg,
+    rgb(9 28 22 / 70%),
+    rgb(9 28 22 / 35%) 35%,
+    rgb(9 28 22 / 92%)
+  );
+}
+
+.brand {
+  margin: 0;
+  font:
+    700 2rem Georgia,
+    serif;
+  letter-spacing: 0.03em;
+}
+
+.brand span {
+  margin-left: 0.75rem;
+  font:
+    500 0.75rem system-ui,
+    sans-serif;
+  letter-spacing: 0.2em;
+}
+
+.intro {
+  margin-top: auto;
+  padding-top: 9rem;
+  max-width: 42rem;
+}
+
+.eyebrow,
+.caption {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+}
+
+h2 {
+  font:
+    400 clamp(2.5rem, 4.5vw, 4.75rem)/1.08 Georgia,
+    serif;
+  letter-spacing: -0.035em;
+  margin: 1.5rem 0;
+}
+
+.intro > p:last-child {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.caption {
+  margin: 3.5rem 0 0;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem clamp(1.25rem, 2.5vw, 3rem);
+  min-width: 0;
+  background: #fcfaf5;
+}
+
+.content {
+  width: 100%;
+  max-width: 25rem;
+  margin: auto;
+  padding-block: 2rem;
+}
+
+.footer {
+  text-align: center;
+  font-size: 0.75rem;
+  color: #4b5e57;
+}
+
+.mobile-brand {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  main {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .scene {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    min-height: 0;
+    padding: 0;
+    visibility: hidden;
+  }
+
+  .panel {
+    padding: 2rem 1.5rem;
+  }
+
+  .mobile-brand {
+    display: block;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: #214e40;
+  }
+}
