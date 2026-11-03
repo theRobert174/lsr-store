@@ -58,12 +58,15 @@ scripts/preview.mjs    Servidor local de la compilación estática con fallback 
 
 ## Requisitos y comandos
 
-Node **22.22.3+ de la rama 22**, **24.15.0+ de la rama 24** o **26+**; pnpm **12.15.0**. CI usa Node 24.
+Node **22.23.0+ de la rama 22**, **24.22.0+ de la rama 24** o **26.12.0+ de la rama 26**; pnpm **12.15.0**. CI usa Node 22.23.1. Para el despliegue se ha validado Node 22.23.1.
 
 | Comando                   | Uso                                                          |
 | ------------------------- | ------------------------------------------------------------ |
 | `pnpm start`              | Desarrollo en el puerto 4200                                 |
 | `pnpm build`              | Compilación de producción con presupuestos de tamaño         |
+| `pnpm build:cloudflare`   | Compilar y empaquetar los archivos para Cloudflare           |
+| `pnpm cloudflare:check`   | Validar el paquete sin publicar                              |
+| `pnpm deploy:cloudflare`  | Publicar el paquete preparado tras iniciar sesión            |
 | `pnpm preview`            | Vista previa estática en el puerto 4173, después de compilar |
 | `pnpm test --watch=false` | Pruebas unitarias con Vitest                                 |
 | `pnpm e2e:install`        | Instalar Chromium para Playwright                            |
@@ -88,13 +91,25 @@ GitHub Actions ejecuta formato, pruebas unitarias, tipado, compilación y E2E co
 
 La carpeta que se publica es **`dist/lsr-store/browser`**, no `dist/lsr-store`. No se necesitan variables secretas ni una API.
 
-Se incluyen configuraciones para:
+El destino preparado es **Cloudflare Workers Static Assets**, en
+`https://libreria.rodrigomartinez.dev`, como proyecto independiente del portafolio en
+`rodrigomartinez.dev`. El subdominio es el destino configurado; la publicación requiere
+iniciar sesión en la cuenta de Cloudflare.
 
-- **Netlify:** `netlify.toml` define compilación, carpeta pública y fallback a `index.html`.
-- **Vercel:** `vercel.json` define salida y reescritura de rutas de la aplicación.
-- **Otro hosting estático:** configura el mismo fallback para que recargar `/seller/catalog`, `/seller/checkout` o `/seller/receipt/:id` cargue Angular.
+```bash
+pnpm build:cloudflare
+pnpm cloudflare:check
+pnpm exec cf auth login
+pnpm deploy:cloudflare
+```
 
-Consulta [la guía de despliegue](docs/deployment.md), incluida la publicación bajo un subdirectorio. El enlace público se añadirá cuando exista un despliegue; este repositorio no presupone un dominio ni una cuenta de hosting.
+La CLI y el empaquetador oficiales están fijados a versiones exactas porque usan un
+formato beta. Angular genera sus archivos habituales; un script los empaqueta para
+`cf deploy --prebuilt`, sin añadir backend ni sustituir el compilador de Angular.
+
+Consulta [la guía de despliegue](docs/deployment.md) para conectar GitHub desde el panel,
+asociar el subdominio y comprobar las rutas. `ci.yml` conserva las comprobaciones de
+calidad; las configuraciones alternativas de Netlify y Vercel se han retirado.
 
 ## Capturas
 

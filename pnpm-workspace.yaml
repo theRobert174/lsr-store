@@ -3,3 +3,6 @@ allowBuilds:
   esbuild: true
   lmdb: true
   msgpackr-extract: true
+  workerd: true
+minimumReleaseAgeExclude:
+  - cf@1.0.0-beta.27

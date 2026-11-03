@@ -45,3 +45,9 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# Cloudflare local output and credentials
+/.cloudflare/
+/.wrangler/
+.env*
+.dev.vars*
